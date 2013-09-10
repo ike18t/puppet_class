@@ -42,3 +42,6 @@ node default {
   notify { "Hello ${fqdn}": }
 }
 
+node 'ike.puppetlabs.vm' {
+  include users
+}
