@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <h1>Hello World!</h1>
+    <ul>
+      <% self.instance_variables.sort.each do |fact| -%>
+        <li><%= fact %> = <%= self.instance_variable_get(fact) %></li>
+      <% end -%>
+    </ul>
+  </body>
+</html>

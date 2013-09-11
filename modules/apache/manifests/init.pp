@@ -26,13 +26,13 @@ class apache {
   }
 
   service { 'httpd':
-    require => 'Package[httpd]',
+    require => Package[httpd],
     ensure  => running,
     name    => $httpd_pkg
   }
 
   File {
-    require => 'Package[httpd]', #adds the apache user and group
+    require => Package[httpd], #adds the apache user and group
     owner   => $httpd_user,
     group   => $httpd_group,
     mode    => '0644'
@@ -42,7 +42,7 @@ class apache {
     ensure => file,
     path   => $httpd_conf,
     source => "puppet:///modules/apache/${httpd_pkg}.conf",
-    notify => 'Service[httpd]'
+    notify => Service[httpd]
   }
 
   file {['/var/www', '/var/www/html']:
@@ -51,6 +51,6 @@ class apache {
 
   file { '/var/www/html/index.html':
     ensure  => file,
-    source  => 'puppet:///modules/apache/index.html'
+    content => template('apache/index.html.erb')
   }
 }
