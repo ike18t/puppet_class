@@ -5,9 +5,16 @@ class apache {
   }
 
   service { 'httpd':
+    require => 'Package[httpd]',
     ensure  => running,
-    name    => 'httpd',
-    require => 'Package[httpd]'
+    name    => 'httpd'
+  }
+
+  File {
+    require => 'Package[httpd]', #adds the apache user and group
+    owner   => 'apache',
+    group   => 'apache',
+    mode    => '0644'
   }
 
   file { 'httpd.conf':
