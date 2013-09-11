@@ -44,4 +44,5 @@ node default {
 
 node 'ike.puppetlabs.vm' {
   include users
+  include apache
 }
