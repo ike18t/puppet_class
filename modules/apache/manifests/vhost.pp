@@ -18,13 +18,12 @@ define apache::vhost (
     ensure => directory,
     name   => $docroot
   }
-  file { "create default page for ${name}":
+  file { "${docroot}/index.html":
     ensure  => file,
-    name    => "${docroot}/index.html",
     content => "<html><body>Hi, I'm ${name}.</body></html>"
   }
   host { $name:
     ensure => present,
-    ip     => '127.0.0.1'
+    ip     => $::ipaddress
   }
 }
