@@ -1,19 +1,20 @@
 class apache {
-  package { 'httpd_package':
+  package { 'httpd':
     ensure => installed,
     name   => 'httpd'
   }
 
-  service { 'httpd_service':
+  service { 'httpd':
     ensure  => running,
     name    => 'httpd',
     require => 'Package[httpd]'
   }
 
-  file { '/etc/httpd/conf/httpd.conf':
-    ensure  => file,
-    source  => 'puppet:///modules/apache/httpd.conf',
-    notify  => 'Service[httpd_service]'
+  file { 'httpd.conf':
+    ensure => file,
+    path   => '/etc/httpd/conf/httpd.conf',
+    source => 'puppet:///modules/apache/httpd.conf',
+    notify => 'Service[httpd]'
   }
 
   file {['/var/www', '/var/www/html']:
