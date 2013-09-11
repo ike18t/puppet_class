@@ -1,6 +1,7 @@
 class apache {
-  package { 'httpd':
-    ensure => installed
+  package { 'httpd_package':
+    ensure => installed,
+    name   => 'httpd'
   }
 
   service { 'httpd_service':
@@ -12,11 +13,11 @@ class apache {
   file { '/etc/httpd/conf/httpd.conf':
     ensure  => file,
     source  => 'puppet:///modules/apache/httpd.conf',
-    notify => 'Service[httpd_service]'
+    notify  => 'Service[httpd_service]'
   }
 
   file {['/var/www', '/var/www/html']:
-    ensure => directory
+    ensure  => directory
   }
 
   file { '/var/www/html/index.html':
